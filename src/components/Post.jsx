@@ -1,12 +1,14 @@
-import { PencilLine } from 'phosphor-react'
+import { ComputerTower } from 'phosphor-react'
 import styles from './Post.module.css'
 import amouo from '../images/amouo.jpeg'
+import { Comment } from './Comment'
+import { Avatar } from './Avatar'
 export function Post() {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src={amouo} alt="sei la" />
+          <Avatar src={amouo} />
           <div className={styles.authorInfo}>
             <strong> Camila Mendes </strong>
             <span> Web Developer master senior </span>
@@ -37,16 +39,24 @@ export function Post() {
         </p>
 
         <p>
+          {' '}
           <a href="">
-            Desde o primeiro dia na “equipe da riqueza”, tentei encontrar
-            semelhanças entre os diversos bilionários. Meu propósito com este
-            livro é mostrar que os 1.645 bilionários presentes na lista da
-            Forbes possuem mais características em comum do que a quantidade de
-            zeros antes da vírgula em suas contas bancárias. Eu acredito que
-            existe um mindset bilionário, o que faz com que a maioria desses
-            ricaços pense e aja de maneira similar.
-          </a>
+            <ComputerTower size={20} /> #Progamação
+          </a>{' '}
+          <a href="">#Tecnologia</a>{' '}
         </p>
+      </div>
+      <form className={styles.commentForm}>
+        <strong> Deixe seu feedback </strong>
+        <textarea placeholder="Deixe um comentario" />
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
+      <div className={styles.commentList}>
+        <Comment />
+        <Comment />
+        <Comment />
       </div>
     </article>
   )

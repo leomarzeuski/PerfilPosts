@@ -6,6 +6,13 @@ import './Global.css'
 import styles from './App.module.css'
 import { sidebar as Sidebar } from './components/Sidebar'
 
+const posts = [
+  {
+    id: 1,
+    author: {},
+    content: []
+  }
+]
 export function App() {
   return (
     <div>
