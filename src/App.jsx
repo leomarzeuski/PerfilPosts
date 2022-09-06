@@ -1,6 +1,5 @@
 import { Header } from './components/Header'
 import { Post } from './components/Post'
-import amouo from './images/amouo.jpeg'
 import './Global.css'
 
 import styles from './App.module.css'
@@ -54,7 +53,8 @@ const posts = [
       },
 
       { type: 'link', content: 'jane.design/doctorcare' }
-    ]
+    ],
+    publishedAt: new Date('2022-09-13 10:08:09')
   }
 ]
 export function App() {
@@ -68,6 +68,7 @@ export function App() {
           {posts.map(post => {
             return (
               <Post
+                key={post.id}
                 author={post.author}
                 content={post.content}
                 publishedAt={post.publishedAt}

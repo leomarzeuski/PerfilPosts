@@ -4,7 +4,8 @@ import amouo from '../images/amouo.jpeg'
 import { ThumbsUp } from 'phosphor-react'
 import { Avatar } from './Avatar'
 
-export function Comment() {
+export function Comment({ data }) {
+  console.log(data)
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src={amouo} />
@@ -21,7 +22,7 @@ export function Comment() {
               <Trash size={24} />
             </button>
           </header>
-          <p>Muito bom Leo, parabéns!!</p>
+          <p>{data}</p>
         </div>
         <footer>
           <button>
