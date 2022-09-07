@@ -1,12 +1,11 @@
 import { format } from 'date-fns'
 
-import styles from './Post.module.css'
-import { Comment } from './Comment'
-import { Avatar } from './Avatar'
-import ptBR from 'date-fns/locale/pt-BR'
 import { formatDistanceToNow } from 'date-fns/esm'
-import { useState, useEffect } from 'react'
-import is from 'date-fns/esm/locale/is/index.js'
+import ptBR from 'date-fns/locale/pt-BR'
+import { useState } from 'react'
+import { Avatar } from './Avatar'
+import { Comment } from './Comment'
+import styles from './Post.module.css'
 
 export function Post({ author, publishedAt, content }) {
   const [comments, setComments] = useState(['post top'])
@@ -27,6 +26,7 @@ export function Post({ author, publishedAt, content }) {
 
     setComments([...comments, newCommentText])
     setNewCommentText('')
+    saveOnLocalStorage(newCommentText)
   }
 
   function handleNewCommentChange() {
@@ -36,6 +36,21 @@ export function Post({ author, publishedAt, content }) {
 
   function handleNewCommentInvalid() {
     event.target.setCustomValidity('esse campo não e valido')
+  }
+
+  function saveOnLocalStorage(comment) {
+    const object = {
+      nome: 'leo',
+      idade: 22,
+      comentario: comment
+    }
+
+    let comentariosjson = localStorage.getItem('comentarios') ?? '[]'
+    let comentarios = JSON.parse(comentariosjson)
+    console.log(comentarios)
+    comentarios.push(object)
+    let json = JSON.stringify(comentarios)
+    localStorage.setItem('comentarios', json)
   }
 
   function deleteComment(commentToDelete) {
