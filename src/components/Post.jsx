@@ -6,10 +6,11 @@ import { Avatar } from './Avatar'
 import ptBR from 'date-fns/locale/pt-BR'
 import { formatDistanceToNow } from 'date-fns/esm'
 import { useState, useEffect } from 'react'
+import is from 'date-fns/esm/locale/is/index.js'
 
 export function Post({ author, publishedAt, content }) {
-  const [comments, setComments] = useState(['Post Muito Top!'])
-  const [newCommentText, setNewCommentText] = useState([''])
+  const [comments, setComments] = useState(['post top'])
+  const [newCommentText, setNewCommentText] = useState('')
   const publishedDateFormatted = format(
     publishedAt,
     "d 'de' LLLL 'às' HH:mm'h'",
@@ -30,11 +31,25 @@ export function Post({ author, publishedAt, content }) {
 
   function handleNewCommentChange() {
     setNewCommentText(event.target.value)
+    event.target.setCustomValidity('')
   }
 
-  useEffect(() => {
-    console.log({ comments })
-  }, [comments])
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('esse campo não e valido')
+  }
+
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeleteOne = comments.filter(comment => {
+      return comment != commentToDelete
+    })
+    setComments(commentsWithoutDeleteOne)
+  }
+
+  // useEffect(() => {
+  //   console.log({ comments })
+  // }, [comments])
+
+  const isNewCommentEmpty = newCommentText == 0
 
   return (
     <article className={styles.post}>
@@ -74,14 +89,24 @@ export function Post({ author, publishedAt, content }) {
           placeholder="Deixe um comentario"
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
       <div className={styles.commentList}>
-        {comments?.map((comment, index) => {
-          return <Comment key={index} data={comment} />
+        {comments?.map(comment => {
+          return (
+            <Comment
+              key={comment}
+              data={comment}
+              onDeleteComment={deleteComment}
+            />
+          )
         })}
       </div>
     </article>

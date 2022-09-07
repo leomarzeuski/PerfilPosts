@@ -3,9 +3,17 @@ import styles from './Comment.module.css'
 import amouo from '../images/amouo.jpeg'
 import { ThumbsUp } from 'phosphor-react'
 import { Avatar } from './Avatar'
+import { useState, useEffect } from 'react'
 
-export function Comment({ data }) {
-  console.log(data)
+export function Comment({ data, onDeleteComment }) {
+  const [likeCount, setLikeCount] = useState(0)
+  function handleDeleteComment() {
+    console.log('delete')
+    onDeleteComment(data)
+  }
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1)
+  }
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src={amouo} />
@@ -18,16 +26,19 @@ export function Comment({ data }) {
                 Cerca de 30 minutos atrás
               </time>
             </div>
-            <button tittle="Deletar os comentarios">
+            <button
+              onClick={handleDeleteComment}
+              tittle="Deletar os comentarios"
+            >
               <Trash size={24} />
             </button>
           </header>
           <p>{data}</p>
         </div>
         <footer>
-          <button>
+          <button onClick={handleLikeComment}>
             <ThumbsUp />
-            Aplaudir <span></span>
+            Aplaudir <span>{likeCount}</span>
           </button>
         </footer>
       </div>
